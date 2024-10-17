@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>PORTONE 결제 PAGE</h1>
+    <a class="auth_btn" href="javascript:void(0)">인증요청</a>
+    <div>
+        <h4>인증된 사용자 정보</h4>
+        <div class="auth_info"></div>
+    </div>
+    <hr>
+    <a class="pay_btn" href="javascript:void(0)">결제요청</a>
+
+    <hr>
+    <a class="pay_info_btn" href="javascript:void(0)">결제정보 조회</a>
+    <hr>
+    <a class="pay_cancel_btn" href="javascript:void(0)">결제취소</a>
+
+    <!--axios cdn    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- PortOne Cdn   -->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <script>
+        IMP.init("imp87380722");
+
+        const auth_btn = document.querySelector('.auth_btn');
+        //인증
+        auth_btn.addEventListener('click',function(){
+            IMP.certification({
+                pg: "inicis_unified",
+                merchant_uid: "test_lwk1pvy6",
+
+            },function(resp){
+                console.log(resp);
+                const imp_uid=resp.imp_uid;
+                //
+                axios.get(`/portOne/getAuthInfo/${imp_uid}`)
+                .then(response=>{
+                    console.log(response);
+                    const auth_info = document.querySelector('.auth_info');
+                    const name = response.data.response.name;
+                    const phone = response.data.response.phone;
+                    auth_info.innerHTML="name : " + name + "<br>";
+                    auth_info.innerHTML+="phone : " + phone;
+                 })
+                .catch(error=>{console.log(error);});
+
+            });
+        });
+
+        //결제
+        const pay_btn = document.querySelector('.pay_btn');
+        pay_btn.addEventListener('click',function(){
+              IMP.request_pay({
+                pg: "danal",
+                pay_method: "phone",
+                merchant_uid: "test_lwk2kw0d",
+                name: "상품명-갤럭시23 ULTRA_2",
+                amount: 100,
+                buyer_tel: "010-0000-0000",
+              },function(resp){console.log(resp)});
+
+        });
+    </script>
+</body>
+</html>

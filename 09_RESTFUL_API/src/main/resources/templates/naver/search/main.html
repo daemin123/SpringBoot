@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <h1>NAVER SEARCH MAIN PAGE</h1>
+
+        <input name="" class="keyword"><a href="javascript:void(0)" class="btn"> 검색</a>
+        <hr>
+        <div class="display">
+
+        </div>
+
+        <!-- axios cdn        -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            const btn = document.querySelector('.btn');
+            btn.addEventListener('click',function(){
+                const keyword = document.querySelector('.keyword').value;
+                axios.get(`/naver/search/${keyword}`)
+                .then(resp=>{console.log(resp);})
+                .catch(err=>{console.log(err);});
+            });
+        </script>
+
+</body>
+
+</html>

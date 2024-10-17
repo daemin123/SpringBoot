@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>KAKAO PAY MAIN PAGE</h1>
+
+<a href="javascript:void(0)" class="pay_btn">결제요청</a>
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    const pay_btn = document.querySelector('.pay_btn');
+    pay_btn.addEventListener('click',function(){
+        axios.get("/kakao/pay/req")
+        .then(resp=>{
+            console.log(resp);
+            const data = resp.data;
+            const pc_url = data.next_redirect_pc_url;
+            console.log(pc_url);
+            location.href=pc_url;
+        })
+        .catch(err=>{console.log(err);});
+    });
+</script>
+
+</body>
+</html>

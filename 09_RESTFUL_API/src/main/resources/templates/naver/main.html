@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <h1>NAVER MAIN PAGE</h1>
+
+        <div>
+            문제 : NAVER PROFILE 정보가 해당 페이지에서 확인될수있도록 설정하세요.
+        </div>
+        <div>
+            <div th:text="${profile}"> </div>
+            <hr>
+            <div th:text="${profile.resultcode}"> </div>
+            <hr>
+            <div th:text="${profile.response}"> </div>
+            <hr>
+            <div th:text="${profile.response.profile_image}"> </div>
+        </div>
+</body>
+</html>

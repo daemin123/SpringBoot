@@ -1,0 +1,48 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// REST
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+	implementation 'com.google.code.gson:gson'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+	//MAIL
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//Spotify API(최신버전 : https://github.com/spotify-web-api-java/spotify-web-api-java)
+	implementation 'se.michaelthelin.spotify:spotify-web-api-java:8.0.0'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
